@@ -1,21 +1,12 @@
 import { Link } from "react-router";
-import "./AdminIndex.css";
+import "./Admin.css";
+import AdminNavigator from "../../components/admin/AdminNavigator";
 
 function AdminIndexPage() {
   return (
     <>
       <div className="admin-container">
-        <nav className="admin-side-nav">
-          <h2>관리자메뉴</h2>
-          <ul>
-            <li>
-              <Link to="/admin/employees/add">신규사원등록</Link>
-            </li>
-            <li>
-              <Link to="/admin/employees/manage">사원관리</Link>
-            </li>
-          </ul>
-        </nav>
+        <AdminNavigator />
 
         <main className="admin-main">
           <h1>관리자 대시보드</h1>
