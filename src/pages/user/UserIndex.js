@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "./User.css";
 import { useNavigate } from "react-router";
+import { useUserContext } from "../../provider/UserProvider";
 function UserIndexPage() {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
-
+  const { setUser, setToken } = useUserContext();
   const submitHandle = function (evt) {
     evt.preventDefault();
     const data = {
@@ -28,6 +29,10 @@ function UserIndexPage() {
       })
       .then(function (data) {
         setError(null);
+        setUser(data.employee);
+        setToken(data.token);
+
+        console.log(data);
         navigate("/user/workspace");
       })
       .catch(function (error) {
