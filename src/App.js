@@ -12,6 +12,7 @@ import UserChangePasswordPage from "./pages/user/UserChangePassword";
 import UserWorkspaceLayout from "./pages/user/UserLayout";
 import UserBoardPage from "./pages/user/UserBoard";
 import UserBoardWritePage from "./pages/user/UserBoardWrite";
+import UserBoardViewPage from "./pages/user/UserBoardView";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -38,6 +39,10 @@ function App() {
         {
           path: "/user/workspace/board",
           element: <UserBoardPage />,
+        },
+        {
+          path: "/user/workspace/board/:id",
+          element: <UserBoardViewPage />,
         },
         {
           path: "/user/workspace/board/write",

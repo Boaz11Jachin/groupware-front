@@ -1,26 +1,25 @@
-import { Link } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { useUserContext } from "../../provider/UserProvider";
 
 function UserBoardPage() {
-  const dummy = [
-    {
-      id: 1,
-      writer: "윤형호",
-      title: "테스트중입니다",
-      wroteAt: "2025-05-01T15:48:17.627284300",
-    },
-    {
-      id: 2,
-      writer: "윤형호",
-      title: "테스트중입니다",
-      wroteAt: "2025-05-01T15:48:17.627284300",
-    },
-    {
-      id: 3,
-      writer: "윤형호",
-      title: "테스트중입니다",
-      wroteAt: "2025-05-01T15:48:17.627284300",
-    },
-  ];
+  const { token } = useUserContext();
+  const [boards, setBoards] = useState([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    fetch("http://192.168.10.61:9090/api/board", {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        setBoards(json);
+      });
+  }, []);
 
   return (
     <div className="user-board">
@@ -42,10 +41,15 @@ function UserBoardPage() {
             </tr>
           </thead>
           <tbody>
-            {dummy.map((item) => (
-              <tr key={item.id}>
+            {boards.map((item) => (
+              <tr
+                key={item.id}
+                onClick={() => {
+                  navigate("/user/workspace/board/" + item.id);
+                }}
+              >
                 <td>{item.title}</td>
-                <td>{item.writer}</td>
+                <td>{item.writer.name}</td>
                 <td>{item.wroteAt}</td>
               </tr>
             ))}
