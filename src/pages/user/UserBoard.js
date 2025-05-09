@@ -4,7 +4,7 @@ import { useUserContext } from "../../provider/UserProvider";
 
 function UserBoardPage() {
   const { token } = useUserContext();
-  const [boards, setBoards] = useState([]);
+  const [boards, setBoards] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     fetch("http://192.168.10.61:9090/api/board", {
@@ -41,7 +41,7 @@ function UserBoardPage() {
             </tr>
           </thead>
           <tbody>
-            {boards.map((item) => (
+            {boards?.content.map((item) => (
               <tr
                 key={item.id}
                 onClick={() => {
