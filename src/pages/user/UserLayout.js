@@ -6,7 +6,7 @@ import { Client } from "@stomp/stompjs";
 
 function UserWorkspaceLayout() {
   const [alarm, setAlarm] = useState([]);
-  const { user } = useUserContext();
+  const { user, setStompClient } = useUserContext();
 
   const webSoketInitialize = function () {
     const client = new Client({
@@ -28,6 +28,8 @@ function UserWorkspaceLayout() {
             return [...oldAlarm, message.body];
           });
         });
+
+        setStompClient(client);
       },
     });
 
